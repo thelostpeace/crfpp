@@ -213,6 +213,27 @@ const char *ModelImpl::getTemplate() const {
   return 0;
 }
 
+bool TaggerImpl::load_model(const char *model_path) {
+  close();
+
+  DecoderFeatureIndex *decoder_feature_index = new DecoderFeatureIndex;
+  feature_index_ = decoder_feature_index;
+  allocator_ = new Allocator;
+
+  if (!decoder_feature_index->open(model_path)) {
+    WHAT << feature_index_->what();
+    close();
+    return false;
+  }
+
+  const double c = 1.0;
+
+  feature_index_->set_cost_factor(c);
+  ysize_ = feature_index_->ysize();
+
+  return true;
+}
+
 bool TaggerImpl::open(const Param &param) {
   close();
 
@@ -783,6 +804,16 @@ Tagger *createTagger(int argc, char **argv) {
 Tagger *createTagger(const char *argv) {
   TaggerImpl *tagger = new TaggerImpl();
   if (!tagger->open(argv)) {
+    setGlobalError(tagger->what());
+    delete tagger;
+    return 0;
+  }
+  return tagger;
+}
+
+Tagger *createTagger1(const char *model_path) {
+  TaggerImpl *tagger = new TaggerImpl();
+  if (!tagger->load_model(model_path)) {
     setGlobalError(tagger->what());
     delete tagger;
     return 0;

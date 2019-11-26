@@ -83,6 +83,7 @@ class TaggerImpl : public Tagger {
   bool         open(const Param &param);
   bool         open(const char *argv);
   bool         open(int argc, char **argv);
+  bool         load_model(const char *model_file);
 
   bool         set_model(const Model &model);
 

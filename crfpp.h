@@ -350,6 +350,10 @@ CRFPP_DLL_EXTERN Tagger *createTagger(int argc, char **argv);
 // e.g. arg = "-m model -v3";
 CRFPP_DLL_EXTERN Tagger *createTagger(const char *arg);
 
+// create CRFPP::Tagger instance with parameter in arg
+// e.g. arg = model path;
+CRFPP_DLL_EXTERN Tagger *createTagger1(const char *arg);
+
 // create CRFPP::Model instance with parameters in argv[]
 // e.g, argv[] = {"CRF++", "-m", "model", "-v3"};
 CRFPP_DLL_EXTERN Model *createModel(int argc, char **argv);
