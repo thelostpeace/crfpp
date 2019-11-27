@@ -707,6 +707,19 @@ const char* TaggerImpl::parse(const char* input) {
   return parse(input, std::strlen(input));
 }
 
+const char* TaggerImpl::predict(const char* input) {
+  return parse1(input, std::strlen(input));
+}
+
+const char* TaggerImpl::parse1(const char* input, size_t length) {
+  std::istringstream is(std::string(input, length));
+  if (!read(&is) || !parse()) {
+    return 0;
+  }
+  toString1();
+  return os_.c_str();
+}
+
 const char* TaggerImpl::parse(const char* input, size_t length) {
   std::istringstream is(std::string(input, length));
   if (!read(&is) || !parse()) {
@@ -785,6 +798,18 @@ const char* TaggerImpl::toString() {
     }
     PRINT;
   }
+
+  return const_cast<const char*>(os_.c_str());
+
+#undef PRINT
+}
+
+const char* TaggerImpl::toString1() {
+  os_.assign("");
+
+  for (size_t i = 0; i < x_.size(); ++i) {                      \
+    os_ << yname(y(i));                                         \
+  }                                                             
 
   return const_cast<const char*>(os_.c_str());
 

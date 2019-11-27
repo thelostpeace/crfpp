@@ -145,9 +145,12 @@ class TaggerImpl : public Tagger {
     return const_cast<const char **>(&x_[i][0]);
   }
   const char* toString();
+  const char* toString1();
   const char* toString(char *, size_t);
   const char* parse(const char*);
+  const char* predict(const char*);
   const char* parse(const char*, size_t);
+  const char* parse1(const char*, size_t);
   const char* parse(const char*, size_t, char*, size_t);
   bool parse();
   bool clear();
