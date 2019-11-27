@@ -10,3 +10,6 @@ source from [https://drive.google.com/drive/folders/0B4y35FiV1wh7fngteFhHQUN2Y1B
  - 2019-11-26 add CPP interface
    + add `createModel1(const char *)` in `crfpp.h`
    + add `load_model(const char *)` in `tagger.h` `tagger.cpp`
+ - 2019-11-27 add CPPP interface
+   + add `predict(const char *)` in virtual class `Tagger`
+   + add implementation `predict` `parse1` `toString1` in `tagger.cpp`
